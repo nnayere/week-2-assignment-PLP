@@ -1,0 +1,83 @@
+# Base class
+class Smartphone:
+    def __init__(self, brand, model, storage):
+        self.brand = brand
+        self.model = model
+        self.storage = storage
+        self.__battery_level = 100   # private attribute (encapsulation)
+
+    def call(self, number):
+        print(f"{self.brand} {self.model} is calling {number}...")
+
+    def charge(self, amount):
+        self.__battery_level = min(100, self.__battery_level + amount)
+        print(f"{self.brand} {self.model} charged. Battery: {self.__battery_level}%")
+
+    def get_battery(self):
+        return self.__battery_level
+
+
+# Derived class (Inheritance + Polymorphism)
+class GamingPhone(Smartphone):
+    def __init__(self, brand, model, storage, gpu):
+        super().__init__(brand, model, storage)
+        self.gpu = gpu
+
+    def play_game(self, game):
+        print(f"{self.brand} {self.model} with {self.gpu} is playing {game} 🎮")
+    
+    # Polymorphism (override charge)
+    def charge(self, amount):
+        super().charge(amount)
+        print("Fast charging enabled ⚡")
+
+
+# Create objects
+phone1 = Smartphone("Samsung", "Galaxy S23", "256GB")
+phone2 = GamingPhone("Asus", "ROG Phone 7", "512GB", "Adreno 740")
+
+# Test functionality
+phone1.call("08012345678")
+phone1.charge(20)
+
+phone2.call("08198765432")
+phone2.play_game("Call of Duty")
+phone2.charge(50)
+
+RESULT
+Samsung Galaxy S23 is calling 08012345678...
+Samsung Galaxy S23 charged. Battery: 100%
+Asus ROG Phone 7 is calling 08198765432...
+Asus ROG Phone 7 with Adreno 740 is playing Call of Duty 🎮
+Asus ROG Phone 7 charged. Battery: 100%
+Fast charging enabled ⚡
+
+POLYMOPHISM
+class Vehicle:
+    def move(self):
+        raise NotImplementedError("Subclasses must implement this method")
+
+class Car(Vehicle):
+    def move(self):
+        print("Driving 🚗")
+
+class Plane(Vehicle):
+    def move(self):
+        print("Flying ✈️")
+
+
+class Boat(Vehicle):
+    def move(self):
+        print("Sailing 🚤")
+
+# Polymorphism in action
+vehicles = [Car(), Plane(), Boat()]
+
+for v in vehicles:
+    v.move()
+
+RESULT
+Driving 🚗
+Flying ✈️
+Sailing 🚤
+
